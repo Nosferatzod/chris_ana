@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="./icons/icon04.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossa Galeria de Amor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+.photo-item, #modalPhoto {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+    border: 2px solid transparent;
+}
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .photo-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            aspect-ratio: 1;
+            border: 2px solid transparent;
+        }
+        .photo-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255,107,139,0.3);
+            border-image: linear-gradient(45deg, #ff6b8b, #ff8e53);
+            border-image-slice: 1;
+        }
+        
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .photo-item i {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            color: white;
+            font-size: 1.5rem;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        /* Modal styles */
+        .photo-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+         .photo-item::before {
+            content: "🎇";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            font-size: 1.5rem;
+            z-index: 2;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+        .photo-modal-content {
+            width: 80%;
+            max-width: 700px;
+        }
+        
+        #modalPhoto {
+            max-width: 100%;
+            max-height: 70vh;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(255,107,139,0.5);
+        }
+        .photo-item:hover, 
+.photo-item.active, /* Adicionei esta classe para o modal */
+#modalPhoto {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255,107,139,0.3);
+    border-image: linear-gradient(45deg, #ff6b8b, #ff8e53);
+    border-image-slice: 1;
+}
+
+/* Emoji decorativo para fotos no grid */
+.photo-item::before, 
+#modalPhoto::before { /* Adicionei para o modal */
+    content: "🎇❤";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    font-size: 1.5rem;
+    z-index: 2;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+/* Efeito extra para o modal */
+#modalPhoto {
+    transform: scale(1.02);
+    box-shadow: 0 0 30px rgba(255,107,139,0.5), 
+                0 0 60px rgba(255,107,139,0.3);
+}
+        
+        .poem-display {
+            background-color: rgba(255,255,255,0.9);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            max-height: 20vh;
+            overflow-y: auto;
+        }
+        
+        .close-modal, .nav-arrow {
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 40px;
+        }
+        
+        .close-modal:hover {
+            color: var(--rosa-escuro);
+        }
+        
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 40px;
+            background-color: rgba(0,0,0,0.5);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-arrow:hover {
+            background-color: var(--rosa-escuro);
+        }
+        
+        .nav-arrow.left {
+            left: 20px;
+        }
+        
+        .nav-arrow.right {
+            right: 20px;
+        }
+        
+.photo-counter {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    color: white;
+    text-align: center;
+    font-size: 1.2rem;
+}
+        
+.music-control {
+    position: relative; /* Mude de absolute para relative */
+    margin-top: 20px; /* Adicione um espaço acima do botão */
+    text-align: center;
+}
+
+        
+   .music-btn {
+            background-color: var(--rosa-escuro);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+.music-btn:hover {
+    background-color: var(--rosa-medio);
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+/* Ajuste no contador para não sobrepor */
+.photo-counter {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    color: white;
+    text-align: center;
+    font-size: 1.2rem;
+}
+        
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <span class="nav-heart">❤</span>
+                <span class="fw-bold" style="color: var(--rosa-escuro);">Nossa Galeria</span>
+                <span class="nav-heart">❤</span>
+            </a>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="fw-bold mb-4 animate__animated animate__fadeIn" style="color: var(--rosa-escuro);">Só você em meu coração</h2>
+                    <p class="lead mb-5 animate__animated animate__fadeIn" style="color: var(--rosa-escuro);">Você mais única do que nunca</p>
+                </div>
+            </div>
+            
+            <div class="photo-grid">
+                <!-- Fotos com poemas correspondentes -->
+                <div class="photo-item animate__animated animate__fadeInUp" onclick="openPhotoModal(0)">
+                    <img src="./imgs/img01.webp" alt="Nossa foto 1">
+                    <i class="fas fa-music"></i>
+                </div>
+                
+                <div class="photo-item animate__animated animate__fadeInUp" onclick="openPhotoModal(1)">
+                    <img src="./imgs/img02.webp" alt="Nossa foto 2">
+                    <i class="fas fa-music"></i>
+                </div>
+                
+                <div class="photo-item animate__animated animate__fadeInUp" onclick="openPhotoModal(2)">
+                    <img src="./imgs/img03.webp" alt="Nossa foto 3">
+                    <i class="fas fa-music"></i>
+                </div>
+                
+                <div class="photo-item animate__animated animate__fadeInUp" onclick="openPhotoModal(3)">
+                    <img src="./imgs/img04.webp" alt="Nossa foto 4">
+                    <i class="fas fa-music"></i>
+                </div>
+                
+                <div class="photo-item animate__animated animate__fadeInUp" onclick="openPhotoModal(4)">
+                    <img src="./imgs/img05.webp" alt="Nossa foto 5">
+                    <i class="fas fa-music"></i>
+                </div>
+                
+                <div class="photo-item animate__animated animate__fadeInUp" onclick="openPhotoModal(5)">
+                    <img src="./imgs/img06.webp" alt="Nossa foto 6">
+                    <i class="fas fa-music"></i>
+                </div>
+                
+                <div class="photo-item animate__animated animate__fadeInUp" onclick="openPhotoModal(6)">
+                    <img src="./imgs/img07.webp" alt="Nossa foto 7">
+                    <i class="fas fa-music"></i>
+                </div>
+                
+                <div class="photo-item animate__animated animate__fadeInUp" onclick="openPhotoModal(7)">
+                    <img src="./imgs/img08.webp" alt="Nossa foto 8">
+                    <i class="fas fa-music"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal para visualização de fotos e poemas -->
+    <div id="photoModal" class="photo-modal">
+        <span class="close-modal" onclick="closePhotoModal()">&times;</span>
+        
+        <div class="photo-modal-content">
+            <img id="modalPhoto" src="" alt="Foto ampliada">
+            
+            <div class="poem-display">
+                <h4 id="poemTitle"></h4>
+                <p id="poemContent"></p>
+            </div>
+            
+            <div class="music-control">
+                <button id="musicBtn" class="music-btn" onclick="toggleMusic()">
+                    <i class="fas fa-music"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="photo-counter">
+            <span id="photoCount">1/8</span>
+        </div>
+    </div>
+        
+        <div class="music-control">
+            <button id="musicBtn" class="music-btn" onclick="toggleMusic()">
+                <i class="fas fa-music"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Áudio para a música -->
+    <audio id="backgroundMusic">
+        <source src="./audio/tokyo.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Dados dos poemas (adicione seus 8 poemas)
+        const poems = [
+            {
+                title: "",
+                content: "Amor, desde o instante em que te conheci, algo em mim floresceu. Não foi apenas encanto, não foi só admiração — foi amor. Um amor que brotou como se sempre tivesse existido, como se o meu coração apenas estivesse esperando por você para enfim despertar. E desde então, tudo em mim pulsa por tua causa. Meu mundo ganhou cor, minha alma ganhou direção. Te amar é como respirar em um campo de primavera depois de uma longa tempestade. É sentir o sol se deitando sobre a pele enquanto a brisa suave sussurra o teu nome. É um amor silencioso, mas que queima. Queima como fogo que não destrói, mas aquece, ilumina, transforma. Você é o que há de mais vivo em mim. É a vida que corre nas minhas veias, é o abrigo que encontro quando o mundo parece desabar. Quando o cansaço me cobre, é no teu sorriso que encontro paz. Quando penso em desistir, é a tua lembrança que me ergue. É por você que luto, é pelo nosso amor que sigo. E se for preciso, atravesso o tempo, o medo, a dúvida. Porque amar você é o que dá sentido a tudo. Se o mundo se apagar, eu acenderei mil estrelas só para que você nunca se perca. E se um dia a distância quiser nos desafiar, que ela saiba: entre nós mora um amor que o tempo respeita, que os ventos não levam, que nenhum silêncio destrói.Você é o meu sempre. Meu agora, meu depois, meu lar. E amar você… é a coisa mais bonita que eu já fiz."
+            },
+            {
+                title: "", 
+                content: "Amor meu, eu te amo mais do que tudo que já amei nesta vida. Você é minha razão, meu suspiro, minha escultura viva; é como uma obra de arte esculpida pelo próprio tempo, onde encontro paz só em admirar teu existir. Você é chama que aquece sem ferir, é o calor que me envolve nas noites mais frias, é minha alma gêmea, meu destino, meu porto seguro. Nosso amor é raro, desses que nascem uma vez por século, e ele me dá coragem para enfrentar qualquer tempestade. Por você, eu lutaria contra um leão por dia, sem medo, só com amor no peito. Você é meu tudo. É por você que quero ser minha melhor versão — aquela que ama com delicadeza, que cuida nos detalhes, que escuta com atenção e que fala com o coração. A versão que um dia te encantou e que, desde então, vive para te fazer sorrir. Se for para estar ao seu lado, meu amor, quero viver não apenas anos, mas décadas, séculos. Quero cada nascer do sol contigo, cada silêncio partilhado, cada riso inesperado. Por você, eu viveria o impossível, reinventaria o tempo, desafiaria o mundo.Porque amar você é a minha maior verdade. E se for pra sonhar, que seja contigo. Se for pra amar, que seja pra sempre."
+            },
+                        {
+                title: "", 
+                content: "Amor, você é linda. A mulher mais bonita que já existiu. Eu sou completamente apaixonado pela sua beleza, pela sua essência, por tudo o que você é. Sua beleza me deixa sem ar, me faz perder o rumo, me faz querer te admirar como se o mundo parasse só para isso. Eu te amo tanto, meu amor, e tudo em você é apaixonante — seu olhar, sua voz, seu jeito único de ser.Sou completamente vidrado em você. Obcecado, mas de um jeito doce, porque amar você virou o meu maior vício. Eu amo estar ao seu lado, dividir segundos com você, ouvir suas risadas, receber cada foto sua como se fosse uma promessa silenciosa de um futuro onde somos só nós dois, juntos, construindo algo eterno.Eu te amo com todas as minhas forças. Com cada defeito meu, com cada pedaço imperfeito do meu ser, com todos os meus sonhos — porque em todos eles, você está.Te amo tanto que não consigo parar de pensar em você. Você vive nos meus pensamentos, nos meus planos, nas minhas noites e nas minhas manhãs. Eu sonho contigo, acordo querendo você, passo o dia inteiro pensando em nós. Porque te amo tanto que não existe um só futuro em que eu me veja sem você."
+            },
+                        {
+                title: "", 
+                content: "Amor, eu planejo futuros lindos pra nós. Um futuro onde estamos juntos, vivendo uma vida tranquila, plena e recheada de amor. Imagino nossos filhos correndo pela casa, com risos leves e olhos brilhando de felicidade, crianças saudáveis e cheias de vida — frutos do nosso amor mais puro.Vejo nosso casamento como um sonho realizado. Uma cerimônia linda, com cada detalhe refletindo a grandeza do nosso sentimento. Uma lua de mel inesquecível, viagens pelo mundo, descobertas lado a lado, colecionando memórias que irão nos fortalecer a cada passo. Porque cada risada dividida, cada instante de alegria, constrói pontes entre nossas almas. Trazem amor, vínculo, cumplicidade... vitalidade pra esse sentimento que só cresce.Um dia, quero te chamar de esposa. Quero poder olhar pro mundo e, com um sorriso cheio de orgulho, mostrar minha aliança e dizer: “eu sou realizado”. Porque terei você como minha esposa, nossos filhos como nossas maiores alegrias, e uma casa com piscina, cheia de vida e histórias, onde viveremos momentos inesquecíveis em família.Quero uma vida calma ao seu lado, feita de abraços demorados, cafés na varanda e domingos preguiçosos. Quero te amar por cada ano da minha existência e além dela, porque uma vida com você é tudo o que desejo. Uma vida com você é uma vida de felicidade.Eu te amo mais do que tudo nesta vida, meu amor. Você é o meu tudo — meu amor, minha vida, meu coração, meu lar."
+            },
+                        {
+                title: "", 
+                content: "Há dias em que a saudade aperta devagar, como quem toca com cuidado uma ferida ainda aberta. E, mesmo assim, há algo que me mantém firme: a esperança de te ver de novo. De cruzar teu olhar outra vez, sentir teu cheiro invadindo meu mundo, ouvir tua voz preenchendo o silêncio que ficou desde tua ausência. Te ver, mesmo que por um instante, é o que acende meu peito nos dias nublados. O que sinto por você vai além das palavras. É um sentimento que me atravessa inteiro, que me torna melhor, que me faz querer cuidar de cada detalhe, de cada sorriso teu. Amar você é a coisa mais bonita que já me aconteceu. É como respirar mais fundo, enxergar cores mais vivas, acreditar mais no que antes parecia impossível. E o quanto eu te desejo... não é só o toque, é a presença. É ter teu riso ecoando na minha memória e teu jeito gravado em mim. Desejo teus olhos buscando os meus, tua mão entrelaçada à minha, tua existência colada à minha vida. Te desejo com a alma. Com os planos, com os gestos, com os sonhos que só fazem sentido contigo. Você é o centro da minha calma e o motivo do meu fervor. É a esperança que me guia, o amor que me preenche, o desejo que me faz te querer todos os dias, de todas as formas — com ternura, com intensidade, com verdade. E enquanto eu não te tenho ao alcance dos braços, te tenho no mais íntimo do meu coração, esperando, amando e desejando... você."
+            },
+                        {
+                title: "", 
+                content: "Amor, O que eu sinto por você não cabe em definições pequenas. É algo que nasce do fundo do peito e se espalha pelo corpo como um calor suave, que acalma e, ao mesmo tempo, faz o coração acelerar. É mais que carinho, mais que paixão — é um amor que se constrói em silêncio, mas grita dentro de mim todos os dias.Esse sentimento é o que me sustenta. Em cada pensamento em que você aparece, encontro propósito. É por você que acordo querendo ser mais gentil, mais verdadeiro, mais inteiro. Você me dá razão, dá sentido aos meus planos e cor à minha rotina. É como se tudo o que eu já fui estivesse me preparando para te amar da forma mais pura e profunda que eu conheço.E quando penso em tudo o que ainda quero viver, é com você que imagino meus dias. Desejo dividir sorrisos na cozinha, abraços demorados ao entardecer, conversas que atravessam a madrugada. Quero estar ao seu lado nos dias bons e também nos desafiadores, porque até o caos tem beleza quando estou contigo. Sonho com um futuro onde nossas mãos constroem juntos um lar cheio de riso e memórias. Onde nossos filhos herdam o brilho dos seus olhos e a paz do seu abraço. Onde cada canto da casa carrega nossa história — uma história escrita com afeto, respeito e entrega verdadeira. Porque mais do que te amar, eu escolho te amar todos os dias. Escolho esperar você, cuidar de você, caminhar contigo. E enquanto esse futuro ainda é sonho, ele vive aqui, dentro de mim, alimentado pela esperança de ter você como minha vida inteira."
+            },
+                                    {
+                title: "", 
+                content: "Amor, não há um só dia em que eu não me sinta profundamente orgulhoso de você. Ver o quanto você se dedica à sua faculdade, essa conquista tão grandiosa, essa Federal que muitos sonham, mas que você alcançou com esforço, me enche de admiração. É lindo acompanhar sua entrega, seu foco, o jeito como você transforma cansaço em força e dificuldade em superação. Você é luz, e não há dúvida de que seu caminho será brilhante.Te ver estudando com tanto afinco, mesmo quando o mundo parece pesado, só reforça o que já sei: você nasceu para vencer. E eu acredito, com todo meu coração, que seu futuro será não apenas promissor, mas extraordinário. Um futuro onde seus sonhos vão se concretizar com a mesma beleza que você carrega no olhar — porque você merece tudo de melhor que a vida puder oferecer.E se há algo que eu mais desejo, é poder estar nesse futuro ao seu lado. Não como espectador, mas como parte da sua história. Quero estar presente nas conquistas, nos dias comuns, nos abraços depois de provas difíceis, nas noites em que você só precisa de silêncio e carinho. Quero ser seu apoio constante, seu alicerce firme, aquele que acredita em você até quando você duvidar de si mesma. Tudo o que você faz tem meu apoio. Cada passo que você dá, cada escolha que faz, cada meta que traça — estou aqui, inteiro, de mãos dadas com você, torcendo, incentivando, caminhando junto. Porque teu sucesso é minha alegria. Tua felicidade é o que move meu mundo. E não é só o orgulho que me prende a você. É o amor que cresce ao ver tua coragem. É o encanto de amar alguém tão determinada, tão rara. Te amo por quem você é, e por tudo o que ainda vai se tornar. Eu quero fazer parte da tua vida, dos teus dias mais simples aos maiores triunfos. Porque ao te apoiar, ao te amar, eu também me realizo."
+            },
+                                                {
+                title: "", 
+                content: "Você vive em mim de um jeito que nem o tempo consegue explicar. Penso em você antes de dormir, com o peito cheio de calma e o coração leve, como se teu nome embalasse meus sonhos. E quando o sono chega, é com você que eu caminho nas paisagens que só existem no mundo de dentro. Te sonho. Te reencontro. Te abraço no silêncio da madrugada. E, como se não bastasse, acordo ainda com você no pensamento — como se minha mente soubesse que nenhum dia começa de verdade sem lembrar do teu rosto. E não há nada mais bonito do que receber tua primeira mensagem. Um simples “bom dia” vindo de você carrega uma ternura que muda tudo. Quando leio um “eu te amo” teu, meu mundo desacelera, como se só aquilo importasse, como se tudo o que existe de bonito se resumisse em três palavras saindo da tua alma pra tocar a minha. E quando você me chama de “amor”, meu peito se aquece. Quando me chama de “vida”, eu me lembro do quanto é bom existir ao teu lado. Quando diz “momo”, meu sorriso vem tão espontâneo que até minha tristeza se cala. Cada apelido teu tem um pedaço de afeto que me desarma por dentro. Nunca sorri como sorrio com você. Nunca vivi uma alegria tão pura quanto essa que você desperta em mim com gestos tão simples. Ficar contigo é como respirar num lugar onde o ar é leve e doce. É como encontrar abrigo depois de muito tempo andando sem rumo. Você me faz sentir completo, como se nada me faltasse. É tão raro, tão bonito, que às vezes eu me pego pensando se tudo isso é mesmo real — e é. Você é real. E amar você, viver você, é o que dá cor à minha existência. Estar com você é a definição de beleza que nenhuma palavra consegue explicar. É a certeza de que o amor verdadeiro existe. Porque ele tem teu nome, teu toque, tua voz... e mora aqui, em mim."
+            },
+            // Adicione os outros 6 poemas aqui
+        ];
+        
+        const photos = [
+            "./imgs/img01.webp",
+            "./imgs/img02.webp",
+            "./imgs/img03.webp",
+            "./imgs/img04.webp",
+            "./imgs/img05.webp",
+            "./imgs/img06.webp",
+            "./imgs/img07.webp",
+            "./imgs/img08.webp"
+        ];
+        
+        let currentIndex = 0;
+        const music = document.getElementById('backgroundMusic');
+        let isMusicPlaying = false;
+        
+        // Restaurar estado da música do localStorage
+        if(localStorage.getItem('musicTime')) {
+            music.currentTime = parseFloat(localStorage.getItem('musicTime'));
+        }
+        
+        if(localStorage.getItem('musicPlaying') === 'true') {
+            music.play();
+            isMusicPlaying = true;
+            updateMusicButton();
+        }
+        
+       function openPhotoModal(index) {
+    currentIndex = index;
+    
+    // Adiciona classe 'active' à foto clicada
+    document.querySelectorAll('.photo-item')[index].classList.add('active');
+    
+    updateModalContent();
+    document.getElementById('photoModal').style.display = 'flex';
+    
+    if(!isMusicPlaying) {
+        music.play();
+        isMusicPlaying = true;
+        updateMusicButton();
+    }
+}
+
+function closePhotoModal() {
+    document.getElementById('photoModal').style.display = 'none';
+    
+    // Remove classe 'active' de todas as fotos
+    document.querySelectorAll('.photo-item').forEach(item => {
+        item.classList.remove('active');
+    });
+}
+        
+        function navigatePhotos(direction) {
+            currentIndex += direction;
+            
+            if(currentIndex < 0) currentIndex = photos.length - 1;
+            if(currentIndex >= photos.length) currentIndex = 0;
+            
+            updateModalContent();
+        }
+        
+        function updateModalContent() {
+            document.getElementById('modalPhoto').src = photos[currentIndex];
+            document.getElementById('photoCount').textContent = `${currentIndex + 1}/${photos.length}`;
+            
+            // Atualizar poema correspondente
+            const poem = poems[currentIndex] || poems[0]; // Fallback para o primeiro poema
+            document.getElementById('poemTitle').textContent = poem.title;
+            document.getElementById('poemContent').textContent = poem.content;
+        }
+        
+        function toggleMusic() {
+            if(isMusicPlaying) {
+                music.pause();
+            } else {
+                music.play();
+            }
+            isMusicPlaying = !isMusicPlaying;
+            updateMusicButton();
+            
+            // Salvar estado no localStorage
+            localStorage.setItem('musicPlaying', isMusicPlaying);
+        }
+        
+        function updateMusicButton() {
+            const icon = isMusicPlaying ? 'fa-pause' : 'fa-music';
+            document.getElementById('musicBtn').innerHTML = `<i class="fas ${icon}"></i>`;
+        }
+        
+        // Salvar posição da música periodicamente
+        setInterval(() => {
+            if(isMusicPlaying) {
+                localStorage.setItem('musicTime', music.currentTime);
+            }
+        }, 1000);
+        
+        // Fechar modal com ESC
+        document.addEventListener('keydown', function(e) {
+            if(e.key === 'Escape') {
+                closePhotoModal();
+            }
+        });
+        
+        // Inicializar corações flutuantes
+        function createHearts() {
+            const container = document.getElementById('floatingHearts');
+            for(let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤';
+                heart.classList.add('heart');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 15 + 5) + 's';
+                container.appendChild(heart);
+            }
+        }
+        
+        window.addEventListener('load', createHearts);
+    </script>
+</body>
+</html>

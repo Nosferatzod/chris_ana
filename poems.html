@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="./icons/icon04.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossos Poemas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(255, 107, 139, 0.6);
+            font-size: 20px;
+            animation: float linear infinite;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Estilos novos para os poemas */
+        .poem-card {
+            position: relative;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(255, 107, 139, 0.2);
+            border: 1px solid rgba(255, 107, 139, 0.3);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .poem-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 107, 139, 0.3);
+        }
+
+        .poem-card::before {
+            content: "❤";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: rgba(255, 107, 139, 0.3);
+        }
+
+        .poem-card::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b8b, #ff8e53);
+        }
+
+        .poem-card h3 {
+            color: #ff6b8b;
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .poem-card h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b8b, #ff8e53);
+        }
+
+        .poem-card p {
+            color: #555;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        .heart-btn {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            background: linear-gradient(45deg, #ff6b8b, #ff8e53);
+            color: white;
+            border-radius: 50%;
+            font-size: 24px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 139, 0.4);
+            text-decoration: none;
+        }
+
+        .heart-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 6px 20px rgba(255, 107, 139, 0.6);
+        }
+
+        /* Corações decorativos nos cantos */
+        .poem-card .heart-decoration {
+            position: absolute;
+            font-size: 1rem;
+            opacity: 0.3;
+        }
+
+        .poem-card .heart-decoration:nth-child(1) {
+            top: 5px;
+            left: 10px;
+        }
+
+        .poem-card .heart-decoration:nth-child(2) {
+            bottom: 5px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="floatingHearts"></div>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="./index.html">
+                <span class="nav-heart">❤</span>
+                <span class="fw-bold" style="color: var(--rosa-escuro);">Nosso Amor</span>
+                <span class="nav-heart">❤</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="./index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="./memories.html">Memórias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="./poems.html">Poemas</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h2 class="fw-bold mb-4" style="color: var(--rosa-escuro);">Palavras que nascem do meu coração</h2>
+                    <p class="lead" style="color: var(--rosa-escuro);">Só você em minha vida</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="poem-card">
+                        <span class="heart-decoration">❤</span>
+                        <span class="heart-decoration">❤</span>
+                        <h3>Confia em Mim, Amor</h3>
+                        <p>Meu amor,
+você sabe, não sabe?
+que meu coração te pertence por inteiro
+que cada batida é tua
+e cada suspiro meu te chama em silêncio.</p>
+<p>Você é tudo para mim, tudo mesmo
+e não é exagero, nem fantasia.
+É a certeza de quem ama com raízes profundas
+como se o mundo só fizesse sentido
+quando seus olhos encontram os meus.</p>
+<p>Mas hoje, amor, eu te peço:
+confia em mim.
+Não só nas horas boas,
+mas nas noites em que o peito pesa,
+nas palavras que doem caladas,
+na dor que às vezes a gente tenta esconder.</p>
+<p>Me conta tudo.
+Se está feliz, se algo te inquieta,
+se o dia te esmagou ou se o silêncio te sufoca.
+Porque eu quero ser teu refúgio, tua paz,
+quero saber o que o teu coração carrega
+mesmo quando ele se cala.</p>
+<p>Nada nesse mundo é maior do que nós dois juntos.
+Nenhuma tempestade, nenhum medo,
+pode vencer o amor que construímos.
+Eu tô aqui.
+Com todas as minhas forças, com todos os meus dias,
+com cada pedaço de mim que pertence só a você.</p>
+<p>Nosso amor, amor,
+vai além do tempo, das dores, das dúvidas.
+Ele cresce em cada dificuldade,
+ele floresce mesmo quando o chão parece seco.
+</p>
+<p>Porque amar é isso,
+é segurar tua mão sem soltar,
+é te ouvir até no silêncio,
+é ser abrigo, mesmo quando tudo lá fora desaba.</p>
+<p>Então por favor,
+confia em mim.
+Conta tudo.
+Vem com o coração aberto,
+que o meu já é teu faz tempo.</p>
+                    </div>
+                    <div class="poem-card">
+                        <span class="heart-decoration">❤</span>
+                        <span class="heart-decoration">❤</span>
+                        <h3>Quando Disserem sim</h3>
+                        <p>Amor,
+quando falarem de eternidade,
+é em você que vou pensar.
+Porque desde que você chegou,
+meu tempo deixou de correr sozinho.
+Tudo ganhou sentido,
+como se teu nome completasse meu destino</p>
+<p>Não é só paixão,
+é algo maior, mais calmo, mais firme.
+É amor que não passa,
+que atravessa esta vida e a próxima,
+é promessa feita não com palavras,
+mas com cada gesto de cuidado,
+com cada olhar que diz "fica"
+mesmo sem som.</p>
+<p>E quando chegar o nosso dia,
+o altar vai ser apenas testemunha
+de algo que já é sagrado há muito tempo.
+Vou olhar nos teus olhos,
+com o coração explodindo no peito,
+e direi "sim"
+não só para uma vida contigo,
+mas para todas as versões que você for.
+Nos bons e maus dias,
+nas vitórias e quedas,
+na juventude e na velhice que virá.</p>
+<p>Porque eu escolhi você.
+E vou continuar escolhendo,
+em cada manhã em que acordar ao teu lado
+e te ver dormindo em paz.
+Nosso casamento será mais do que festa,
+vai ser alicerce,
+vai ser abrigo
+onde o amor nunca dorme.</p>
+<p>E no nosso futuro,
+te vejo sorrindo com os olhos ainda brilhando,
+segurando minha mão com a mesma força do começo.
+Vejo nossos filhos,
+nosso lar cheio de riso e histórias.
+Vejo as cicatrizes que vencemos juntos
+e as memórias que só fazem sentido porque fomos nós dois.</p>
+<p>Você é minha eternidade.
+Meu agora e meu depois.
+E quando o tempo for só lembrança,
+ainda assim,
+vou te amar.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="poem-card">
+                        <span class="heart-decoration">❤</span>
+                        <span class="heart-decoration">❤</span>
+                        <h3>Desde o Primeiro Olhar</h3>
+                        <p>Amor da minha vida,
+não sei quando o mundo começou a girar diferente,
+só sei que foi depois de você.
+Te vi e tudo mudou de lugar,
+como se o universo inteiro tivesse se reorganizado
+só pra te encaixar no meu destino.</p>
+<p>Não foi escolha,
+foi encanto,
+foi o olhar que prendeu o meu,
+o sorriso que rasgou qualquer dúvida,
+foi alma reconhecendo alma
+num instante que nunca mais teve fim.</p>
+<p>E desde então,
+me descubro todos os dias mais teu.
+Não por obrigação,
+mas porque amar você é tão natural
+quanto respirar.</p>
+<p>Tenho orgulho de ti, Ana,
+um orgulho silencioso, mas imenso,
+da tua força, da tua coragem,
+do teu jeito doce que move o mundo sem gritar.
+Eu vejo tudo, amor.
+Vejo como enfrenta os dias difíceis
+com uma luz que ninguém consegue apagar.
+Vejo o quanto cresce,
+mesmo quando o chão tenta te puxar pra baixo.
+E cada detalhe teu me faz querer ser melhor,
+só pra te merecer.</p>
+<p>Amor à primeira vista?
+Talvez seja pouco pra explicar.
+Porque o que senti
+foi mais do que ver…
+foi reconhecer.
+Como se eu já soubesse,
+lá no fundo,
+que um dia meu coração encontraria o teu.</p>
+<p>E agora que encontrei,
+não largo mais.
+Porque é você.
+Sempre foi.
+Sempre vai ser.</p>
+                    </div>
+                    <div class="poem-card">
+                        <span class="heart-decoration">❤</span>
+                        <span class="heart-decoration">❤</span>
+                        <h3>Mundo Que É Teu Nome</h3>
+                        <p>Amor,
+quando estamos juntos,
+o mundo lá fora se dissolve em silêncio.
+Só fica o nosso,
+feito de olhares que sabem,
+toques que traduzem o que ninguém mais entende.</p>
+<p>Criamos um lugar só nosso
+onde o tempo desacelera,
+onde a rotina não pesa,
+onde tua presença basta
+pra fazer da vida um lugar bom de viver.</p>
+<p>E vamos viajar, amor.
+Não só por cidades com nomes novos,
+mas por céus desconhecidos,
+por estradas empoeiradas e manhãs em países distantes.
+Vamos rir em aeroportos,
+nos perder por ruelas,
+tirar fotos tremidas que só nós entenderemos.</p>
+<p>Quero ouvir tua voz misturada ao vento da Toscana,
+te ver dançar na chuva de Paris,
+te abraçar forte diante de um pôr do sol no Japão
+como se cada canto do planeta fosse apenas um espelho
+da beleza que carrego por te amar.</p>
+<p>Mas o mais bonito de tudo
+não é o destino,
+é viver isso com você.
+Com teu jeito de tornar tudo mais leve,
+mais bonito, mais cheio de sentido.
+Com tua risada que desmonta qualquer tristeza
+e teus olhos que sabem exatamente
+quando tudo o que eu preciso
+é um abraço teu.</p>
+<p>Amar você é viver dentro de um milagre manso.
+É acordar todos os dias
+com a certeza de que algo divino aconteceu
+quando nossas vidas se cruzaram.</p>
+<p>Minha vivência contigo, amor,
+é maravilha constante,
+é travessia segura,
+é poesia escrita a cada toque.
+E se me perguntarem o que é felicidade,
+responderei sem hesitar:
+é te ter por perto,
+no nosso mundo,
+em cada canto dessa vida
+e nas próximas que vierem.</p>
+                    </div>
+                     <div class="poem-card">
+                        <span class="heart-decoration">❤</span>
+                        <span class="heart-decoration">❤</span>
+                        <h3>Quando o Mundo Nos Vir</h3>
+                        <p>Te encontrar.
+Te ver ali, diante de mim,
+sem telas, sem distância,
+com o coração batendo perto do meu —
+é disso que meu peito vive à espera.</p>
+<p>Imagino o instante em que meus braços
+vão enfim te acolher como casa.
+Teu cheiro, tua pele, teu sorriso real,
+e não mais lembrado.
+Te tocar será milagre.
+Te ter, o fim de toda saudade.</p>
+<p>E quando o mundo perceber o que temos,
+vai se calar por um momento.
+Porque nosso amor vai gritar mesmo em silêncio.
+Vai incomodar quem nunca soube o que é amar de verdade.
+Vão olhar, duvidar, querer entender…
+mas só a gente sabe o que carregamos no peito.
+O que construímos com cada palavra,
+com cada promessa feita sem cobrança,
+com cada detalhe que só existe entre nós.</p>
+<p>O mundo pode até tentar.
+Mas não vai quebrar o que é inteiro.
+Não vai ferir o que nasceu verdadeiro.</p>
+<p>Porque juntos, amor,
+a gente enfrenta o que for.
+A dor não nos separa,
+as quedas não nos soltam,
+os ventos contrários só nos fazem abraçar mais forte.</p>
+<p>Somos tempestade e abrigo.
+Somos grito e calmaria.
+Somos tudo aquilo que resiste
+quando tudo ao redor desmorona.</p>
+<p>E eu vou estar aqui.
+Pra viver contigo cada luta
+e celebrar cada vitória,
+com teu nome no peito
+e teu amor como direção.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!--<div class="text-center mt-5">
+                <a href="gallery.html" class="heart-btn">❤</a>
+            </div>-->
+        </div>
+    </section>
+
+    <script>
+        function createHearts() {
+            const container = document.getElementById('floatingHearts');
+            const heartCount = 20;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤';
+                heart.classList.add('heart');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                heart.style.animationDuration = (Math.random() * 15 + 10) + 's';
+                heart.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        window.addEventListener('load', createHearts);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

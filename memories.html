@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="./icons/icon04.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossas Memórias</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .floating-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.heart {
+    position: absolute;
+    color: rgba(255, 107, 139, 0.6); /* Cor rosa com transparência */
+    font-size: 20px;
+    animation: float linear infinite;
+    pointer-events: none;
+    user-select: none;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-100px) translateX(100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+        .rounded-img {
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        .rounded-img:hover {
+            transform: scale(1.05);
+            border-color: var(--rosa-escuro);
+        }
+        .couple-section {
+            background-color: var(--azul-claro);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 3rem;
+        }
+        .italic {
+            font-style: italic;
+        }
+        .photo-pair {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="floatingHearts"></div>
+    
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="./index.html">
+                <span class="nav-heart">❤</span>
+                <span class="fw-bold" style="color: var(--rosa-escuro);">Nosso Amor</span>
+                <span class="nav-heart">❤</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="./index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="./memories.html">Memórias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="./poems.html">Poemas</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section" style="background-color: var(--azul-claro);">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h2 class="fw-bold mb-4" style="color: var(--rosa-escuro);">Nossas Memórias</h2>
+                    <div class="love-text">
+                        <p class="mb-0">"Eu te amo para sempre"</p>
+                        <p class="mb-0">"Nós para sempre"</p>
+                        <p class="mb-0">"I love you"</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-md-3 col-6 mb-4 text-center">
+                    <a href="./poema_1.html"><img src="./imgs/img05.webp" alt="Memória 1" class="rounded-img"></a>
+                </div>
+                <div class="col-md-3 col-6 mb-4 text-center">
+                    <a href="./poema_2.html"><img src="./imgs/img07.webp" alt="Memória 2" class="rounded-img"></a>
+                </div>
+                <div class="col-md-3 col-6 mb-4 text-center">
+                    <a href="./poema_3.html"><img src="./imgs/img02.webp" alt="Memória 3" class="rounded-img"></a>
+                </div>
+                <div class="col-md-3 col-6 mb-4 text-center">
+                    <a href="./poema_4.html"><img src="./imgs/img06.webp" alt="Memória 4" class="rounded-img"></a>
+                </div>
+            </div>
+            
+            <!-- Seção do Casal -->
+            <div class="couple-section text-center mt-5">
+                <h3 class="mb-4" style="color: var(--rosa-escuro);">Nós Dois</h3>
+                
+                <div class="photo-pair">
+                    <div>
+                        <img src="./imgs/chris.webp" alt="Christopher" class="rounded-img">
+                        <h4 class="mt-3">Christopher</h4>
+                        <p class="italic">Passos</p>
+                    </div>
+                    
+                    
+                    
+                    <div>
+                        <img src="./imgs/ela.webp" alt="Ana Clívea" class="rounded-img">
+                        <h4 class="mt-3">Ana Clívea</h4>
+                        <p class="italic">Oliveira</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="poems.html" class="heart-btn">❤</a>
+            </div>
+        </div>
+    </section>
+    <script>
+        function createHearts() {
+    const container = document.getElementById('floatingHearts');
+    const heartCount = 20; // Quantidade de corações
+    
+    for (let i = 0; i < heartCount; i++) {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤';
+        heart.classList.add('heart');
+        
+        // Posição inicial aleatória
+        heart.style.left = Math.random() * 100 + 'vw';
+        
+        // Tamanho aleatório entre 15px e 30px
+        heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+        
+        // Duração da animação aleatória entre 10s e 25s
+        heart.style.animationDuration = (Math.random() * 15 + 10) + 's';
+        
+        // Atraso inicial aleatório
+        heart.style.animationDelay = (Math.random() * 5) + 's';
+        
+        container.appendChild(heart);
+    }
+}
+
+// Executa quando a página carrega
+window.addEventListener('load', createHearts);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/script.js"></script>
+</body>
+</html>

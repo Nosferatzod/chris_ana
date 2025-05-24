@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="./icons/icon04.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Amor Eterno</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <style>
+        .floating-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.heart {
+    position: absolute;
+    color: rgba(255, 107, 139, 0.6); /* Cor rosa com transparência */
+    font-size: 20px;
+    animation: float linear infinite;
+    pointer-events: none;
+    user-select: none;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-100px) translateX(100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+    </style>
+    <!-- Floating hearts background -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <span class="nav-heart">❤</span>
+                <span class="fw-bold" style="color: var(--rosa-escuro);">Nosso Amor</span>
+                <span class="nav-heart">❤</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="./index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="./memories.html">Memórias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="./poems.html">Poemas</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- First Section - Home -->
+    <section class="section text-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeIn" style="color: var(--rosa-escuro);">Nosso Amor Eterno</h1>
+                    <img src="./imgs/img09.jpg" alt="Casal de anime se beijando" class="couple-img mb-4 animate__animated animate__fadeIn">
+                    <p class="lead mb-5 animate__animated animate__fadeIn" style="color: var(--rosa-escuro);">Um amor que transcende o tempo e espaço</p>
+                    <a href="./memories.html" class="heart-btn animate__animated animate__pulse animate__infinite">❤</a>
+                    <p>I LOVE YOU</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        function createHearts() {
+    const container = document.getElementById('floatingHearts');
+    const heartCount = 20; // Quantidade de corações
+    
+    for (let i = 0; i < heartCount; i++) {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤';
+        heart.classList.add('heart');
+        
+        // Posição inicial aleatória
+        heart.style.left = Math.random() * 100 + 'vw';
+        
+        // Tamanho aleatório entre 15px e 30px
+        heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+        
+        // Duração da animação aleatória entre 10s e 25s
+        heart.style.animationDuration = (Math.random() * 15 + 10) + 's';
+        
+        // Atraso inicial aleatório
+        heart.style.animationDelay = (Math.random() * 5) + 's';
+        
+        container.appendChild(heart);
+    }
+}
+
+// Executa quando a página carrega
+window.addEventListener('load', createHearts);
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/script.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="./icons/icon04.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poema Especial - Nosso Amor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --rosa-escuro: #ff6b8b;
+            --rosa-medio: #ff8e9e;
+            --rosa-claro: #ffb3c6;
+            --azul-claro: #e6f7ff;
+        }
+        
+        body {
+            background-color: #fff9fa;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 107, 139, 0.6);
+            font-size: 20px;
+            animation: float linear infinite;
+            pointer-events: none;
+            user-select: none;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .poem-container {
+            max-width: 800px;
+            margin: 100px auto 50px;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255,107,139,0.2);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,107,139,0.3);
+        }
+        
+        .poem-container::before {
+            content: "❤";
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: rgba(255,107,139,0.2);
+            z-index: 0;
+        }
+        
+        .photo-frame {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            padding: 10px;
+            background: linear-gradient(45deg, #ff6b8b, #ff8e53);
+            box-shadow: 0 5px 20px rgba(255,107,139,0.4);
+            position: relative;
+        }
+        
+        .photo-frame::after {
+            content: "💗";
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            font-size: 2rem;
+            z-index: 2;
+        }
+        
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid white;
+        }
+        
+        .poem-text {
+            background: rgba(255,235,238,0.5);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            position: relative;
+            border-left: 5px solid var(--rosa-escuro);
+        }
+        
+        .poem-text::before {
+            content: "“";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 4rem;
+            color: rgba(255,107,139,0.2);
+            line-height: 1;
+        }
+        
+        .poem-text h3 {
+            color: var(--rosa-escuro);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .poem-text p {
+            color: #555;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+            font-size: 1.1rem;
+        }
+        
+        .music-control {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+        }
+        
+        .music-btn {
+            background: linear-gradient(45deg, #ff6b8b, #ff8e53);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255,107,139,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .music-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(255,107,139,0.6);
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            background: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            color: var(--rosa-escuro);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .back-btn:hover {
+            transform: translateX(-5px);
+            color: white;
+            background: var(--rosa-escuro);
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="floatingHearts"></div>
+    
+    <a href="./memories.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    <!--<div class="music-control">
+        <button id="musicBtn" class="music-btn" onclick="toggleMusic()">
+            <i class="fas fa-music"></i>
+        </button>
+    </div>-->
+    
+    
+    <div class="poem-container">
+        <div class="photo-frame">
+            <img src="./imgs/img08.webp" alt="Nossa Foto Especial">
+        </div>
+        
+        <div class="poem-text">
+            <p>Amor,
+desde o instante em que te conheci, algo em mim floresceu. Não foi apenas encanto, não foi só admiração — foi amor. Um amor que brotou como se sempre tivesse existido, como se o meu coração apenas estivesse esperando por você para enfim despertar. E desde então, tudo em mim pulsa por tua causa. Meu mundo ganhou cor, minha alma ganhou direção.</p>
+<p>Te amar é como respirar em um campo de primavera depois de uma longa tempestade. É sentir o sol se deitando sobre a pele enquanto a brisa suave sussurra o teu nome. É um amor silencioso, mas que queima. Queima como fogo que não destrói, mas aquece, ilumina, transforma.</p>
+<p>Você é o que há de mais vivo em mim. É a vida que corre nas minhas veias, é o abrigo que encontro quando o mundo parece desabar. Quando o cansaço me cobre, é no teu sorriso que encontro paz. Quando penso em desistir, é a tua lembrança que me ergue. É por você que luto, é pelo nosso amor que sigo. E se for preciso, atravesso o tempo, o medo, a dúvida. Porque amar você é o que dá sentido a tudo.</p>
+<p>Se o mundo se apagar, eu acenderei mil estrelas só para que você nunca se perca. E se um dia a distância quiser nos desafiar, que ela saiba: entre nós mora um amor que o tempo respeita, que os ventos não levam, que nenhum silêncio destrói.</p>
+<p>Você é o meu sempre. Meu agora, meu depois, meu lar. E amar você… é a coisa mais bonita que eu já fiz.</p>
+            
+        </div>
+        <div class="poem-text">
+            <p>Amor meu, eu te amo mais do que tudo que já amei nesta vida. Você é minha razão, meu suspiro, minha escultura viva; é como uma obra de arte esculpida pelo próprio tempo, onde encontro paz só em admirar teu existir.</p>
+            <p>Você é chama que aquece sem ferir, é o calor que me envolve nas noites mais frias, é minha alma gêmea, meu destino, meu porto seguro. Nosso amor é raro, desses que nascem uma vez por século, e ele me dá coragem para enfrentar qualquer tempestade. Por você, eu lutaria contra um leão por dia, sem medo, só com amor no peito.</p>
+            <p>Você é meu tudo. É por você que quero ser minha melhor versão — aquela que ama com delicadeza, que cuida nos detalhes, que escuta com atenção e que fala com o coração. A versão que um dia te encantou e que, desde então, vive para te fazer sorrir.</p>
+            <p>Se for para estar ao seu lado, meu amor, quero viver não apenas anos, mas décadas, séculos. Quero cada nascer do sol contigo, cada silêncio partilhado, cada riso inesperado. Por você, eu viveria o impossível, reinventaria o tempo, desafiaria o mundo.</p>
+            <p>Porque amar você é a minha maior verdade. E se for pra sonhar, que seja contigo. Se for pra amar, que seja pra sempre.</p>
+        </div>
+        
+    </div>
+    
+    <!--<audio id="backgroundMusic" loop>
+        <source src="./audio/musica.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>-->
+    
+    <script>
+        // Criação dos corações flutuantes
+        function createHearts() {
+            const container = document.getElementById('floatingHearts');
+            for(let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤';
+                heart.classList.add('heart');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                heart.style.animationDuration = (Math.random() * 15 + 10) + 's';
+                heart.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(heart);
+            }
+        }
+        
+        // Controle de música
+        const music = document.getElementById('backgroundMusic');
+        let isMusicPlaying = false;
+        
+        // Tocar música automaticamente (com tratamento para autoplay policies)
+        document.addEventListener('click', function() {
+            if(!isMusicPlaying) {
+                music.play()
+                    .then(() => {
+                        isMusicPlaying = true;
+                        updateMusicButton();
+                    })
+                    .catch(error => {
+                        console.log("Autoplay prevented: ", error);
+                    });
+            }
+        }, { once: true });
+        
+        function toggleMusic() {
+            if(isMusicPlaying) {
+                music.pause();
+            } else {
+                music.play();
+            }
+            isMusicPlaying = !isMusicPlaying;
+            updateMusicButton();
+        }
+        
+        function updateMusicButton() {
+            const icon = isMusicPlaying ? 'fa-pause' : 'fa-music';
+            document.getElementById('musicBtn').innerHTML = `<i class="fas ${icon}"></i>`;
+        }
+        
+        // Inicialização
+        window.addEventListener('load', createHearts);
+    </script>
+</body>
+</html>
