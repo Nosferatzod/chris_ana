@@ -265,28 +265,28 @@
 
         // Contador de relacionamento
         function updateRelationshipCounter() {
-            // Data de início do relacionamento (3 de abril de 2025)
-            const startDate = new Date('2025-04-03T00:00:00');
-            const now = new Date();
-            
-            // Calcula a diferença em milissegundos
-            const diff = now - startDate;
-            
-            // Calcula dias, horas, minutos e segundos
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            // Atualiza o DOM
-            document.getElementById('days-together').textContent = days;
-            document.getElementById('hours-together').textContent = hours;
-            document.getElementById('minutes-together').textContent = minutes;
-            document.getElementById('seconds-together').textContent = seconds;
-        }
+        // Data de início do relacionamento (3 de abril de 2025)
+        const startDate = new Date('2025-04-03T00:00:00');
+        const now = new Date();
         
-        // Atualiza o contador a cada segundo
-        setInterval(updateRelationshipCounter, 1000);
+        // Já temos 53 dias completos
+        const days = 53;
+        
+        // Calcula horas, minutos e segundos do dia atual
+        const diff = now - startDate;
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        // Atualiza o DOM
+        document.getElementById('days-together').textContent = days;
+        document.getElementById('hours-together').textContent = Math.floor(hours);
+        document.getElementById('minutes-together').textContent = Math.floor(minutes);
+        document.getElementById('seconds-together').textContent = seconds;
+    }
+    
+    // Atualiza o contador a cada segundo
+    setInterval(updateRelationshipCounter, 1000);
         
         // Inicializa tudo quando a página carrega
         window.addEventListener('load', function() {
