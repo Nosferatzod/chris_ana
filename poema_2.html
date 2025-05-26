@@ -13,12 +13,32 @@
             --rosa-medio: #ff8e9e;
             --rosa-claro: #ffb3c6;
             --azul-claro: #e6f7ff;
+            --gold-night: #ffcc00;
         }
         
+        /* Sistema Dia/Noite */
+        .sky-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            transition: background 1.5s ease;
+        }
+
+        .day-sky {
+            background: linear-gradient(to bottom, #f5f7fa, #e4e8eb);
+        }
+
+        .night-sky {
+            background: linear-gradient(to bottom, #0F2027, #203A43, #2C5364);
+        }
+
         body {
-            background-color: #fff9fa;
             font-family: 'Arial', sans-serif;
             overflow-x: hidden;
+            transition: background-color 1.5s ease;
         }
         
         .floating-hearts {
@@ -68,6 +88,7 @@
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(255,107,139,0.3);
+            transition: all 0.5s ease;
         }
         
         .poem-container::before {
@@ -78,6 +99,7 @@
             font-size: 2rem;
             color: rgba(255,107,139,0.2);
             z-index: 0;
+            transition: color 0.5s ease;
         }
         
         .photo-frame {
@@ -89,6 +111,7 @@
             background: linear-gradient(45deg, #ff6b8b, #ff8e53);
             box-shadow: 0 5px 20px rgba(255,107,139,0.4);
             position: relative;
+            transition: all 0.5s ease;
         }
         
         .photo-frame::after {
@@ -115,6 +138,7 @@
             margin: 20px 0;
             position: relative;
             border-left: 5px solid var(--rosa-escuro);
+            transition: all 0.5s ease;
         }
         
         .poem-text::before {
@@ -131,6 +155,7 @@
             color: var(--rosa-escuro);
             position: relative;
             z-index: 1;
+            transition: color 0.5s ease;
         }
         
         .poem-text p {
@@ -139,6 +164,7 @@
             position: relative;
             z-index: 1;
             font-size: 1.1rem;
+            transition: color 0.5s ease;
         }
         
         .music-control {
@@ -192,9 +218,54 @@
             color: white;
             background: var(--rosa-escuro);
         }
+
+        /* Modo Noturno */
+        .night-mode {
+            color: white;
+        }
+
+        .night-mode .poem-container {
+            background: rgba(15, 15, 20, 0.9) !important;
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .night-mode .poem-container::before {
+            color: rgba(255, 204, 0, 0.2);
+        }
+
+        .night-mode .photo-frame {
+            background: linear-gradient(45deg, #ffcc00, #ff9933);
+            box-shadow: 0 5px 20px rgba(255, 204, 0, 0.4);
+        }
+
+        .night-mode .poem-text {
+            background: rgba(30, 30, 40, 0.7) !important;
+            border-left: 5px solid var(--gold-night);
+        }
+
+        .night-mode .poem-text h3 {
+            color: var(--gold-night) !important;
+        }
+
+        .night-mode .poem-text p {
+            color: #f0f0f0 !important;
+        }
+
+        .night-mode .back-btn {
+            background: rgba(15, 15, 20, 0.9);
+            color: var(--gold-night);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .night-mode .back-btn:hover {
+            background: var(--gold-night);
+            color: #333;
+        }
     </style>
 </head>
 <body>
+     <div class="sky-container" id="skyContainer"></div>
     <div class="floating-hearts" id="floatingHearts"></div>
     
     <a href="./memories.html" class="back-btn">
@@ -236,6 +307,7 @@
     
     <script>
         // Criação dos corações flutuantes
+               // Criação dos corações flutuantes
         function createHearts() {
             const container = document.getElementById('floatingHearts');
             for(let i = 0; i < 20; i++) {
@@ -249,42 +321,33 @@
                 container.appendChild(heart);
             }
         }
-        
-        // Controle de música
-        const music = document.getElementById('backgroundMusic');
-        let isMusicPlaying = false;
-        
-        // Tocar música automaticamente (com tratamento para autoplay policies)
-        document.addEventListener('click', function() {
-            if(!isMusicPlaying) {
-                music.play()
-                    .then(() => {
-                        isMusicPlaying = true;
-                        updateMusicButton();
-                    })
-                    .catch(error => {
-                        console.log("Autoplay prevented: ", error);
-                    });
-            }
-        }, { once: true });
-        
-        function toggleMusic() {
-            if(isMusicPlaying) {
-                music.pause();
+
+        // Sistema Dia/Noite
+        function updateSky() {
+            const now = new Date();
+            const hours = now.getHours();
+            const skyContainer = document.getElementById('skyContainer');
+            const body = document.body;
+            
+            if (hours >= 6 && hours < 18) {
+                // Dia
+                skyContainer.classList.remove('night-sky');
+                skyContainer.classList.add('day-sky');
+                body.classList.remove('night-mode');
             } else {
-                music.play();
+                // Noite
+                skyContainer.classList.remove('day-sky');
+                skyContainer.classList.add('night-sky');
+                body.classList.add('night-mode');
             }
-            isMusicPlaying = !isMusicPlaying;
-            updateMusicButton();
         }
-        
-        function updateMusicButton() {
-            const icon = isMusicPlaying ? 'fa-pause' : 'fa-music';
-            document.getElementById('musicBtn').innerHTML = `<i class="fas ${icon}"></i>`;
-        }
-        
+
         // Inicialização
-        window.addEventListener('load', createHearts);
+        window.addEventListener('load', () => {
+            createHearts();
+            updateSky();
+            setInterval(updateSky, 3600000); // Atualiza a cada hora
+        });
     </script>
 </body>
 </html>

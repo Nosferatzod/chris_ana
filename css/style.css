@@ -271,7 +271,32 @@
             opacity: 1;
             transform: translateY(0);
         }
-        
+        .navbar-brand .text-title {
+    color: var(--rosa-escuro);
+    transition: color 0.5s ease;
+}
+
+.night-mode .navbar-brand .text-title {
+    color: white;
+}
+
+.nav-heart {
+    color: var(--rosa-escuro);
+    transition: color 0.5s ease;
+}
+
+.night-mode .nav-heart {
+    color: white;
+}
+
+.navbar {
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.night-mode .navbar {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5) !important;
+}
         .nav-heart {
             color: var(--rosa-escuro);
             font-size: 1.5rem;

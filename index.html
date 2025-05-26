@@ -8,22 +8,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="./css/style.css">
-</head>
-
-<body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Estilos existentes */
         .floating-hearts {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
-    overflow: hidden;
-}
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            overflow: hidden;
+        }
 
-.heart-btn {
+        .heart-btn {
             display: inline-block;
             width: 60px;
             height: 60px;
@@ -43,34 +42,209 @@
             box-shadow: 0 6px 20px rgba(255, 107, 139, 0.6);
         }
 
-@keyframes float {
-    0% {
-        transform: translateY(100vh) translateX(0) rotate(0deg);
-        opacity: 0;
-    }
-    10% {
-        opacity: 0.8;
-    }
-    90% {
-        opacity: 0.8;
-    }
-    100% {
-        transform: translateY(-100px) translateX(100px) rotate(360deg);
-        opacity: 0;
-    }
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Novos estilos para o céu dinâmico */
+        .sky-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            transition: background 1.5s ease;
+        }
+
+        .day-sky {
+            background: linear-gradient(to bottom, #87CEEB, #E0F7FA);
+        }
+
+        .night-sky {
+            background: linear-gradient(to bottom, #0F2027, #203A43, #2C5364);
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+            opacity: 0;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        .memory-star {
+            position: absolute;
+            color: gold;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-shadow: 0 0 5px rgba(255,215,0,0.7);
+        }
+
+        .memory-star:hover {
+            transform: scale(1.5);
+            text-shadow: 0 0 15px gold;
+        }
+
+        .memory-tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .memory-star:hover .memory-tooltip {
+            opacity: 1;
+        }
+
+        /* Estilo para o horóscopo do amor */
+        .love-horoscope {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 30px auto;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    text-align: center;
+    position: relative;
+    backdrop-filter: blur(5px);
+    transition: all 0.5s ease;
 }
+    .night-mode .love-horoscope {
+    background: rgba(0, 0, 0, 0.7) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Textos em modo noturno */
+.night-mode {
+    color: white;
+}
+.night-mode .horoscope-title {
+    color: #ffcc00 !important;
+    text-shadow: 0 0 5px rgba(255, 204, 0, 0.3);
+}
+
+.night-mode .horoscope-content {
+    color: #ffffff !important;
+}
+
+.night-mode .sign-name {
+    color: #cccccc !important;
+}
+
+/* Ajuste geral para textos noturnos */
+.night-mode .section h1,
+.night-mode .section p,
+.night-mode .love-text p,
+.night-mode .navbar-brand,
+.night-mode .nav-link {
+    color: white !important;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Navbar no modo noturno */
+.night-mode .navbar {
+    background-color: rgba(15, 15, 15, 0.9) !important;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Corações no navbar */
+.night-mode .nav-heart {
+    color: #ffcc00 !important;
+    text-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+}
+        .horoscope-title {
+            color: #ff6b8b;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .horoscope-content {
+            color: #555;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .zodiac-signs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .sign {
+            text-align: center;
+        }
+
+        .sign-icon {
+            font-size: 2rem;
+            color: #ff6b8b;
+        }
+
+        .sign-name {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Ajustes para a seção principal */
+        .section {
+            padding-top: 100px;
+            padding-bottom: 100px;
+            position: relative;
+        }
+
+        .couple-img {
+            max-width: 300px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 5px solid white;
+        }
     </style>
+</head>
+
+<body>
+    <!-- Céu dinâmico -->
+    <div class="sky-container" id="skyContainer"></div>
+    
     <!-- Floating hearts background -->
     <div class="floating-hearts" id="floatingHearts"></div>
     
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="#">
-                <span class="nav-heart">❤</span>
-                <span class="fw-bold" style="color: var(--rosa-escuro);">Nosso Amor</span>
-                <span class="nav-heart">❤</span>
-            </a>
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <span class="nav-heart">❤</span>
+            <span class="fw-bold text-title" style="margin: 0 5px;">Nosso Amor</span>
+            <span class="nav-heart">❤</span>
+        </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -98,47 +272,207 @@
                     <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeIn" style="color: var(--rosa-escuro);">Nosso Amor Eterno</h1>
                     <img src="./imgs/img09.jpg" alt="Casal de anime se beijando" class="couple-img mb-4 animate__animated animate__fadeIn">
                     <p class="lead mb-5 animate__animated animate__fadeIn" style="color: var(--rosa-escuro);">Um amor que transcende o tempo e espaço</p>
-                                <div class="text-center mt-5">
-                <a href="./memories.html" class="heart-btn">❤</a>
-            </div>
+                    
+                    <!-- Horóscopo do Amor -->
+<div class="love-horoscope animate__animated animate__fadeInUp">
+    <div class="horoscope-title">Horóscopo dos Gêmeos</div>
+    <div class="horoscope-content" id="horoscopeText">
+        <!-- Mensagem será inserida aqui pelo JavaScript -->
+    </div>
+    <div class="zodiac-signs">
+        <div class="sign">
+            <div class="sign-icon">♊</div>
+            <div class="sign-name">Ana<br>20/06</div>
+        </div>
+        <div class="sign">
+            <div class="sign-icon">❤</div>
+            <div class="sign-name">&</div>
+        </div>
+        <div class="sign">
+            <div class="sign-icon">♊</div>
+            <div class="sign-name">Chris<br>05/06</div>
+        </div>
+    </div>
+</div>
+                    
+                    <div class="text-center mt-5">
+                        <a href="./memories.html" class="heart-btn">❤</a>
+                    </div>
                     <p>I LOVE YOU</p>
                 </div>
             </div>
         </div>
     </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Função para criar corações flutuantes
         function createHearts() {
-    const container = document.getElementById('floatingHearts');
-    const heartCount = 20; // Quantidade de corações
+            const container = document.getElementById('floatingHearts');
+            const heartCount = 20;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤';
+                heart.classList.add('heart');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                heart.style.animationDuration = (Math.random() * 15 + 10) + 's';
+                heart.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        // Função para criar estrelas de memórias
+        function createMemoryStars() {
+            const skyContainer = document.getElementById('skyContainer');
+            
+            // Memórias especiais (adicione quantas quiser)
+            const memories = [
+                { title: "Nosso primeiro beijo", date: "03/04/2025", emoji: "💋" },
+                { title: "Nosso primeiro encontro", date: "15/03/2025", emoji: "🌟" },
+                { title: "Primeira viagem juntos", date: "20/05/2025", emoji: "✈️" },
+                { title: "Nosso jantar especial", date: "10/05/2025", emoji: "🍽️" },
+                { title: "Dia do nosso sim", date: "03/04/2025", emoji: "💍" }
+            ];
+            
+            memories.forEach(memory => {
+                const star = document.createElement('div');
+                star.className = 'memory-star';
+                star.innerHTML = memory.emoji;
+                star.style.left = Math.random() * 95 + '%';
+                star.style.top = Math.random() * 85 + '%';
+                
+                const tooltip = document.createElement('div');
+                tooltip.className = 'memory-tooltip';
+                tooltip.textContent = `${memory.title} - ${memory.date}`;
+                star.appendChild(tooltip);
+                
+                star.addEventListener('click', () => {
+                    alert(`${memory.title}\n${memory.date}`);
+                });
+                
+                skyContainer.appendChild(star);
+            });
+        }
+
+        // Função para criar estrelas cintilantes
+        function createTwinklingStars() {
+            const skyContainer = document.getElementById('skyContainer');
+            const starCount = 100;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Tamanho aleatório entre 1px e 3px
+                const size = Math.random() * 2 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                
+                // Posição aleatória
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                
+                // Duração da animação aleatória
+                star.style.setProperty('--duration', (Math.random() * 5 + 3) + 's');
+                
+                // Atraso aleatório
+                star.style.animationDelay = Math.random() * 5 + 's';
+                
+                skyContainer.appendChild(star);
+            }
+        }
+
+        // Função para atualizar o céu conforme o horário
+function updateSky() {
+    const now = new Date();
+    const hours = now.getHours();
+    const skyContainer = document.getElementById('skyContainer');
+    const body = document.body;
     
-    for (let i = 0; i < heartCount; i++) {
-        const heart = document.createElement('div');
-        heart.innerHTML = '❤';
-        heart.classList.add('heart');
+    if (hours >= 6 && hours < 18) {
+        // Dia
+        skyContainer.classList.remove('night-sky');
+        skyContainer.classList.add('day-sky');
+        body.classList.remove('night-mode');
         
-        // Posição inicial aleatória
-        heart.style.left = Math.random() * 100 + 'vw';
+        document.querySelectorAll('.star, .memory-star').forEach(star => {
+            star.style.display = 'none';
+        });
+    } else {
+        // Noite
+        skyContainer.classList.remove('day-sky');
+        skyContainer.classList.add('night-sky');
+        body.classList.add('night-mode');
         
-        // Tamanho aleatório entre 15px e 30px
-        heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
-        
-        // Duração da animação aleatória entre 10s e 25s
-        heart.style.animationDuration = (Math.random() * 15 + 10) + 's';
-        
-        // Atraso inicial aleatório
-        heart.style.animationDelay = (Math.random() * 5) + 's';
-        
-        container.appendChild(heart);
+        document.querySelectorAll('.star, .memory-star').forEach(star => {
+            star.style.display = 'block';
+        });
     }
 }
 
-// Executa quando a página carrega
-window.addEventListener('load', createHearts);
+        // Função para atualizar o horóscopo diário
+// Substitua a função updateHoroscope() por esta versão ampliada
+function updateHoroscope() {
+const geminiHoroscopes = [
+    "Duas almas gêmeas sob o mesmo signo! Hoje a comunicação está em alta - conversem sobre seus sonhos mais profundos.",
+    "A energia geminiana de vocês está em sintonia. Dia perfeito para planejar uma aventura juntos!",
+    "Com dois Gêmeos, a conversa nunca acaba. Aproveitem para passar horas falando sobre tudo e nada.",
+    "Mercúrio, seu regente, favorece a comunicação. Escrevam cartas de amor uma para o outro hoje.",
+    "A dualidade geminiana se completa em vocês dois. Encontrem equilíbrio entre aventura e intimidade.",
+    "Como Gêmeos, vocês têm o dom da adaptação. Hoje é dia de surpreender um ao outro com gestos inesperados!",
+    "A curiosidade geminiana de vocês pede para explorar algo novo juntos. Que tal um hobby a dois?",
+    "O signo dos gêmeos traz leveza ao relacionamento. Riam muito hoje e aproveitem a companhia um do outro!",
+    "Com tanta energia geminiana, o tédio não tem vez! Planejem um encontro diferente e divertido.",
+    "A comunicação é o ponto forte de vocês dois. Hoje, usem palavras para curar, amar e se conectar ainda mais.",
+    "A versatilidade de Gêmeos em dobro! Vocês têm a habilidade de se reinventarem juntos todos os dias.",
+    "O intelecto geminiano de vocês está em alta. Leiam um livro juntos e depois debatam sobre ele.",
+    "Como dois Gêmeos, vocês sabem que o amor se alimenta de novidades. Surpreendam-se mutuamente hoje!",
+    "A energia jovial de Gêmeos mantém o relacionamento sempre fresco. Brinquem como crianças hoje!",
+    "A dualidade de vocês se completa perfeitamente. Um equilibra o outro na dança do relacionamento.",
+    "Com dois Gêmeos, a vida nunca é monótona! Inventem uma nova tradição de casal hoje.",
+    "A comunicação é a chave para vocês. Compartilhem segredos e sonhos que ainda não revelaram.",
+    "A curiosidade geminiana pede para explorar o mundo juntos. Planejem uma viagem, mesmo que seja no sofá!",
+    "A energia mental de Gêmeos está forte. Resolvam palavras cruzadas ou quebra-cabeças juntos.",
+    "Como dois Gêmeos, vocês têm o dom da adaptação. Superem qualquer desafio que aparecer hoje!",
+    "A versatilidade de vocês é impressionante. Mostrem como sabem ser diferentes a cada dia juntos.",
+    "A comunicação flui naturalmente entre vocês. Hoje é dia de conversar até o sol raiar!",
+    "A energia jovial de Gêmeos mantém o amor sempre renovado. Lembrem-se do que os fez se apaixonar.",
+    "Com tanta energia geminiana, o tédio não tem vez! Inventem um jogo novo para brincar juntos.",
+    "A dualidade de vocês se complementa perfeitamente. Um completa as frases do outro hoje!",
+    "Como dois Gêmeos sob o mesmo céu, vocês compartilham uma conexão mental única. Aproveitem!",
+    "A curiosidade de Gêmeos leva vocês a sempre descobrirem coisas novas um sobre o outro. Continuem assim!",
+    "A comunicação é o seu superpoder de casal. Hoje, usem palavras para construir pontes ainda mais fortes.",
+    "A energia adaptável de Gêmeos ajuda vocês a superarem qualquer desafio juntos. Força, casal!",
+    "Com dois Gêmeos, cada dia é uma nova aventura. O que vocês vão explorar juntos hoje?"
+];
+    
+    // Usa o dia do ano (1-365) para selecionar o horóscopo
+     const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 0);
+    const diff = now - start;
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+
+    const horoscopeIndex = dayOfYear % geminiHoroscopes.length;
+    document.getElementById('horoscopeText').textContent = geminiHoroscopes[horoscopeIndex];
+    
+    // Atualiza a cada dia (opcional)
+    setTimeout(updateHoroscope, 24 * 60 * 60 * 1000);
+}
+updateHoroscope();
+        // Inicialização
+        window.addEventListener('load', () => {
+            createHearts();
+            createMemoryStars();
+            createTwinklingStars();
+            updateSky();
+            updateHoroscope();
+            
+            // Atualiza o céu a cada hora
+            setInterval(updateSky, 3600000);
+        });
     </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./js/script.js" defer></script>
-
 </body>
 </html>
