@@ -472,13 +472,19 @@ window.addEventListener('load', () => {
         const now = new Date();
         
         // Já temos 53 dias completos
-        const days = 53;
+    const diff = now - startDate;
         
         // Calcula horas, minutos e segundos do dia atual
-        const diff = now - startDate;
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+ const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    
+    // Calcula horas restantes do dia atual
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    
+    // Calcula minutos restantes da hora atual
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    
+    // Calcula segundos restantes do minuto atual
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
         
         // Atualiza o DOM
         document.getElementById('days-together').textContent = days;
